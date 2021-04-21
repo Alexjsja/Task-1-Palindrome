@@ -12,4 +12,6 @@ public interface UserService {
     User getUserById(String id);
 
     List<User> getAllUsers();
+
+    boolean containsUser(String userId);
 }

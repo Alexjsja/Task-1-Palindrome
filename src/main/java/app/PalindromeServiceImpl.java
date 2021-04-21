@@ -50,7 +50,10 @@ public class PalindromeServiceImpl implements PalindromeService {
     @Override
     public boolean savePalindrome(String str, User user) {
         String userId = user.getId();
-        if (palindromeHandler.isPalindrome(str)&&palindromeContainer.containsPalindrome(str, userId)){
+        boolean valid = userService.containsUser(userId)
+                && palindromeHandler.isPalindrome(str)
+                && !palindromeContainer.containsPalindrome(str, userId);
+        if (valid){
             return palindromeContainer.savePalindrome(str,userId);
         }
         return false;

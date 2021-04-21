@@ -4,6 +4,7 @@ import app.exceptions.NotFoundException;
 import app.interfaces.UserService;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class UserServiceImpl implements UserService {
@@ -23,15 +24,26 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getUserById(String id) {
+    public User getUserById(String userId) {
         return users.stream()
-                .filter(user->user.getId().equals(id))
+                .filter(user->user.getId().equals(userId))
                 .findFirst()
                 .orElseThrow(()->new NotFoundException("user not found"));
     }
 
     @Override
     public List<User> getAllUsers() {
-        return users;
+        return Collections.unmodifiableList(users);
+    }
+
+    // FIXME: 4/21/21
+    @Override
+    public boolean containsUser(String userId) {
+        try {
+            getUserById(userId);
+            return true;
+        }catch (NotFoundException ex){
+            return false;
+        }
     }
 }

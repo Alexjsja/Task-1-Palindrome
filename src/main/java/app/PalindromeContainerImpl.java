@@ -3,6 +3,7 @@ package app;
 import app.exceptions.NotFoundException;
 import app.interfaces.PalindromeContainer;
 
+import javax.management.ImmutableDescriptor;
 import java.util.*;
 
 public class PalindromeContainerImpl implements PalindromeContainer {
@@ -39,7 +40,6 @@ public class PalindromeContainerImpl implements PalindromeContainer {
 
     @Override
     public Set<String> getUserPalindromes(String userId) {
-        return Optional.ofNullable(container.get(userId))
-                .orElseThrow(()->new NotFoundException("user haven't palindromes"));
+        return Collections.unmodifiableSet(container.getOrDefault(userId,Set.of()));
     }
 }
