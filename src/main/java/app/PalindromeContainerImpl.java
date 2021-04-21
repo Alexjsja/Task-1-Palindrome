@@ -1,9 +1,7 @@
 package app;
 
-import app.exceptions.NotFoundException;
 import app.interfaces.PalindromeContainer;
 
-import javax.management.ImmutableDescriptor;
 import java.util.*;
 
 public class PalindromeContainerImpl implements PalindromeContainer {

@@ -12,9 +12,7 @@ public class UserServiceImpl implements UserService {
     // TODO: 4/21/21 mb map
     private final List<User> users = new ArrayList<>();
 
-    public UserServiceImpl(){
-
-    }
+    public UserServiceImpl(){}
 
     @Override
     public User saveUser(String name) {
@@ -36,14 +34,15 @@ public class UserServiceImpl implements UserService {
         return Collections.unmodifiableList(users);
     }
 
-    // FIXME: 4/21/21
     @Override
-    public boolean containsUser(String userId) {
-        try {
-            getUserById(userId);
-            return true;
-        }catch (NotFoundException ex){
-            return false;
-        }
+    public boolean containsUserById(String userId) {
+        return users.stream()
+                .anyMatch(usr -> usr.getId().equals(userId));
+    }
+
+    @Override
+    public boolean containsUserByName(String userName) {
+        return users.stream()
+                .anyMatch(usr -> usr.getName().equals(userName));
     }
 }

@@ -7,6 +7,8 @@ import app.interfaces.UserService;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import java.util.List;
+
 import static org.junit.Assert.*;
 
 public class PalindromeServiceTest {
@@ -33,14 +35,29 @@ public class PalindromeServiceTest {
         User pasha = userService.saveUser("pasha");
         User kirill = userService.saveUser("kirill");
         User arsen = userService.saveUser("arsen");
-        for (int i = 0; i < 10; i++) {
-            userService.saveUser("noname"+i);
-        }
-        boolean savePalindrome = palindromeService.savePalindrome("aabaa", alex);
-        assertTrue(savePalindrome);
+        for (int i = 0; i < 10; i++) userService.saveUser("noname"+i);
 
-        palindromeService.getLeaderboard()
-                .forEach((k,v)-> System.out.println(k+"---"+v));
+
+        assertTrue(palindromeService.savePalindrome("aabaa", alex));
+        assertTrue(palindromeService.savePalindrome("hlbeeykoqqqqokyeeblh",dima));
+        assertTrue(palindromeService.savePalindrome("abacaba",arsen));
+        assertTrue(palindromeService.savePalindrome("hlbeeykoqqqokyeeblh",kirill));
+        assertFalse(palindromeService.savePalindrome("zzzazzazz", pasha));
+
+
+        List<Pair<User, Integer>> leaderboard = palindromeService.getLeaderboard();
+
+        assertSame(leaderboard.get(0).getLeft(), dima);
+        assertSame(leaderboard.get(4).getLeft(), pasha);
     }
 
 }
+
+
+
+
+
+
+
+
+

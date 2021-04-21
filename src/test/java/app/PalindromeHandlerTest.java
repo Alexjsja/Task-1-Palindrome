@@ -28,15 +28,16 @@ public class PalindromeHandlerTest {
 
         assertTrue(palindrome);
         assertTrue(palindrome1);
+        assertTrue(palindrome6);
+        assertTrue(palindrome7);
+        assertTrue(palindrome10);
+        assertTrue(palindrome11);
+
         assertFalse(palindrome2);
         assertFalse(palindrome3);
         assertFalse(palindrome4);
         assertFalse(palindrome5);
-        assertTrue(palindrome6);
-        assertTrue(palindrome7);
         assertFalse(palindrome8);
         assertFalse(palindrome9);
-        assertTrue(palindrome10);
-        assertTrue(palindrome11);
     }
 }

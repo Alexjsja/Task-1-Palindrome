@@ -23,13 +23,9 @@ public class User {
         return id;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
     @Override
     public String toString() {
-        return "app.User{" +
+        return "User{" +
                 "name='" + name + '\'' +
                 ", id='" + id + '\'' +
                 '}';

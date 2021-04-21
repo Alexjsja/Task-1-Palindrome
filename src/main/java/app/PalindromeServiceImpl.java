@@ -5,8 +5,10 @@ import app.interfaces.PalindromeHandler;
 import app.interfaces.PalindromeService;
 import app.interfaces.UserService;
 
-import java.util.Comparator;
-import java.util.Map;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class PalindromeServiceImpl implements PalindromeService {
@@ -24,33 +26,33 @@ public class PalindromeServiceImpl implements PalindromeService {
     }
 
     @Override
-    public Map<User, Integer> getLeaderboard() {
+    public List<Pair<User,Integer>> getLeaderboard() {
         return getLeaderboard(5);
     }
 
     @Override
-    public Map<User, Integer> getLeaderboard(int usersLimit) {
+    public List<Pair<User,Integer>> getLeaderboard(int usersLimit) {
         return userService.getAllUsers()
                 .stream()
                 .map(user-> {
                     Integer userScore = palindromeContainer
                             .getUserPalindromes(user.getId())
                             .stream()
-                            .map(str -> str.replaceAll("\\s+", ""))
-                            .map(String::length)
+                            .map(StringUtils::uniqueLettersCount)
                             .reduce(Integer::sum)
                             .orElse(0);
                     return new Pair<>(user,userScore);
                 })
-                .sorted(Comparator.comparingInt(Pair::getRight))
+                .sorted((p1,p2)-> p2.getRight()- p1.getRight())
                 .limit(usersLimit)
-                .collect(Collectors.toMap(Pair::getLeft,Pair::getRight));
+                .collect(Collectors.toList());
     }
 
     @Override
     public boolean savePalindrome(String str, User user) {
         String userId = user.getId();
-        boolean valid = userService.containsUser(userId)
+        str = StringUtils.leaveNumbersAndLetters(str);
+        boolean valid = userService.containsUserById(userId)
                 && palindromeHandler.isPalindrome(str)
                 && !palindromeContainer.containsPalindrome(str, userId);
         if (valid){
