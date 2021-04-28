@@ -16,7 +16,6 @@ public class App {
         PalindromeServiceImpl palindromeService = new PalindromeServiceImpl(
                 handler,container,userService);
 
-        // FIXME: 4/21/21 security
         while (true) {
             System.out.println("Выберите действие:");
             System.out.println("1 - зарегистрироваться в игре");
@@ -32,7 +31,7 @@ public class App {
                         break;
                     }
                     User savedUser = userService.saveUser(userName);
-                    System.out.printf("Ваш id=%s,ЗАПОМНИТЕ ЕГО \n", savedUser.getId());
+                    System.err.printf("Ваш id=%s,ЗАПОМНИТЕ ЕГО \n", savedUser.getId());
                     break;
                 case "2":
                     System.out.println("5 лучших пользователей");

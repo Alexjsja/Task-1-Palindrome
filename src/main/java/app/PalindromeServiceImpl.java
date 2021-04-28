@@ -38,7 +38,7 @@ public class PalindromeServiceImpl implements PalindromeService {
                     Integer userScore = palindromeContainer
                             .getUserPalindromes(user.getId())
                             .stream()
-                            .map(StringUtils::uniqueLettersCount)
+                            .map(String::length)
                             .reduce(Integer::sum)
                             .orElse(0);
                     return new Pair<>(user,userScore);

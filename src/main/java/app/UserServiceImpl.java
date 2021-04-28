@@ -16,7 +16,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User saveUser(String name) {
-        User user = new User(name, String.valueOf(users.size() + 1));
+        User user = UsersFactory.newUser(name);
         users.add(user);
         return user;
     }
